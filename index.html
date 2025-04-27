@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoDragon Quest</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">
+      <img src="./images/logo.jpg" alt="Logo">
+      <span>EcoDragon Quest</span>
+    </div>
+    <ul>
+      <li><a href="#home" onclick="showPage('home')">Home</a></li>
+      <li><a href="#recycle" onclick="showPage('recycle')">Log Recycle</a></li>
+      <li><a href="#dashboard" onclick="showPage('dashboard')">Dashboard</a></li>
+      <li><a href="#leaderboard" onclick="showPage('leaderboard')">Leaderboard</a></li>
+      <li><a href="#stats" onclick="showPage('stats')">Stats</a></li>
+      <li><a href="#chat" onclick="showPage('chat')">AI Chat</a></li>
+    </ul>
+  </nav>
+
+  <div id="home" class="page container">
+    <div class="main-box">
+      <h1>Breathe Easier with Recycling!</h1>
+      <p>Fight air pollution and improve your health by recycling with Drexel's community to reduce respiratory issues and enhance campus cleanliness.</p>
+      <button onclick="showPage('recycle')">Start Improving Health Now!</button>
+    </div>
+    <div class="info-boxes">
+      <div class="info-box">
+        <h3>Why Recycle for Health?</h3>
+        <p>Waste contributes to air pollution, causing asthma and allergies. Recycling reduces these risks for better lung health.</p>
+      </div>
+      <div class="info-box">
+        <h3>How It Works</h3>
+        <p>1. Log recycled items<br>2. Earn points for cleaner air<br>3. Track health benefits</p>
+      </div>
+      <div class="info-box">
+        <h3>Health Impact</h3>
+        <p>Last month, users reduced pollution equivalent to 1,250 lbs of waste, easing respiratory symptoms!</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="recycle" class="page container" style="display: none;">
+    <h2>Log Recycling for Better Health</h2>
+    <div class="name-input">
+      <input type="text" id="userName" placeholder="Enter your name">
+      <button onclick="saveName()">Save Name</button>
+    </div>
+    <p>Log items to reduce air pollution and improve lung health:</p>
+    <div class="recycle-options">
+      <button class="recycle-btn" onclick="logRecycle('plastic')" disabled id="plasticBtn">
+        <img src="https://img.icons8.com/color/48/plastic.png" alt="Plastic"> Plastic (+10 Points)
+      </button>
+      <button class="recycle-btn" onclick="logRecycle('metal')" disabled id="metalBtn">
+        <img src="https://img.icons8.com/color/48/metal.png" alt="Metal"> Metal (+8 Points)
+      </button>
+      <button class="recycle-btn" onclick="logRecycle('paper')" disabled id="paperBtn">
+        <img src="https://img.icons8.com/color/48/paper.png" alt="Paper"> Paper (+7 Points)
+      </button>
+      <button class="recycle-btn" onclick="logRecycle('glass')" disabled id="glassBtn">
+        <img src="./images/glass.jpg" alt="Glass"> Glass (+6 Points)
+      </button>
+    </div>
+    <div class="waste-calculator">
+      <h3>Calculate Waste for Cleaner Air</h3>
+      <p>Enter waste weight (in lbs) to reduce pollution and support lung health:</p>
+      <div class="waste-inputs">
+        <div class="waste-input">
+          <label for="plasticWeight">Plastic</label>
+          <input type="number" id="plasticWeight" min="0" step="0.1" placeholder="0.0">
+        </div>
+        <div class="waste-input">
+          <label for="metalWeight">Metal</label>
+          <input type="number" id="metalWeight" min="0" step="0.1" placeholder="0.0">
+        </div>
+        <div class="waste-input">
+          <label for="paperWeight">Paper</label>
+          <input type="number" id="paperWeight" min="0" step="0.1" placeholder="0.0">
+        </div>
+        <div class="waste-input">
+          <label for="glassWeight">Glass</label>
+          <input type="number" id="glassWeight" min="0" step="0.1" placeholder="0.0">
+        </div>
+      </div>
+      <button onclick="calculateWastePoints()">Calculate Points</button>
+      <p class="waste-result" id="wasteResult">Points earned: 0</p>
+      <p class="health-feedback" id="healthFeedback">Your recycling supports cleaner air and lung health!</p>
+    </div>
+    <div id="celebration" class="celebration">🎉 Great Job! 🎉</div>
+  </div>
+
+  <div id="dashboard" class="page container" style="display: none;">
+    <h2>Your Health Impact Dashboard</h2>
+    <div class="points-box">
+      <h2>My Health Points</h2>
+      <p>Name: <span id="displayName">Guest</span> | Points: <span id="userPoints">0</span></p>
+    </div>
+    <div class="badges-box">
+      <h3>Your Health Badges</h3>
+      <div id="badgesImages"></div>
+    </div>
+    <div class="progress-box">
+      <p>Progress to Next Badge: <span id="nextBadge">Eco Starter (100 points)</span></p>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+      </div>
+      <p class="badge">Unlocked Badges: <span id="badges">None</span></p>
+    </div>
+  </div>
+
+  <div id="leaderboard" class="page container" style="display: none;">
+    <h2>Top Health Champions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Name</th>
+          <th>Points</th>
+          <th>Achievements</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboardTable"></tbody>
+    </table>
+  </div>
+
+  <div id="stats" class="page container" style="display: none;">
+    <h2>Health Impact Statistics</h2>
+    <p>Track your contributions to cleaner air and better health.</p>
+    <div class="chart-container">
+      <h3>Items Recycled by Category (Bar)</h3>
+      <canvas id="itemsChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <h3>Recycling Distribution (Pie)</h3>
+      <canvas id="pieChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <h3>Weekly Health Actions</h3>
+      <canvas id="weeklyChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <h3>Health Benefits from Recycling</h3>
+      <canvas id="healthChart"></canvas>
+    </div>
+    <div class="impact-box">
+      <h3>Community Health Impact</h3>
+      <div class="impact-stats">
+        <div class="impact-stat">
+          <p>1,883</p>
+          <p>Items Recycled</p>
+        </div>
+        <div class="impact-stat">
+          <p>342</p>
+          <p>Health Champions</p>
+        </div>
+        <div class="impact-stat">
+          <p>2.8k</p>
+          <p>lbs Reduced</p>
+        </div>
+        <div class="impact-stat">
+          <p>89%</p>
+          <p>Accuracy Rate</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="chat" class="page container" style="display: none;">
+    <h2>AI Health & Recycling Assistant</h2>
+    <div class="chat-container">
+      <div class="chat-input-box">
+        <h3>Ask About Health & Recycling</h3>
+        <textarea id="chatInput" rows="4" placeholder="e.g., How does recycling reduce asthma risks?"></textarea>
+        <button onclick="sendChat()">Submit</button>
+      </div>
+      <div class="chat-response-box">
+        <h3>AI Response</h3>
+        <p id="chatResponse">Ask a health or recycling question to get started!</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Contact Us</p>
+    <p>Email: <a href="mailto:support@ecodragonquest.com">support@ecodragonquest.com</a></p>
+    <p>Phone: (215) 895-1234</p>
+    <p>Follow us on <a href="#">Twitter</a> | <a href="#">Instagram</a></p>
+    <p>© 2025 EcoDragon Quest. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
