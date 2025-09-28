@@ -110,10 +110,6 @@ License
 This project is licensed under the MIT License (to be added).
 Contact
 
-Email: support@drexelwasteapp.com
-Phone: (215) 895-1234
-Social: Twitter | Instagram (links to be added)
-
 Acknowledgments
 
 Drexel University: Inspiration for addressing campus waste and health.
