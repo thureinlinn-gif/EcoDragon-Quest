@@ -2,6 +2,9 @@
 
 
 EcoDragon Quest is a web application designed to combat health issues caused by air pollution and campus waste at Drexel University. By gamifying recycling, the app encourages students to reduce waste, improve air quality, and enhance physical and mental well-being. Built for the Dragon Hack hackathon (Medical Track + Social Impact), it addresses respiratory issues (e.g., asthma, allergies), infections from litter, and stress from polluted campuses through engaging features like points, badges, health feedback, and AI-driven education.
+
+
+
 Features
 
 Log Recycling: Log recycled items (Plastic, Metal, Paper, Glass) or weights to earn points, reducing air pollution.
